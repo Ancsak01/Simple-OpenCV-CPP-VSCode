@@ -5,11 +5,12 @@
 #include <iostream>
 
 using namespace std;
+using namespace cv;
 
 int main(int argc, char** argv)
 {
     // read the image from samples folder
-    cv::Mat img = cv::imread("../samples/starry_night.jpg", cv::IMREAD_COLOR);
+    Mat img = imread("../samples/s.png", IMREAD_COLOR);
 
     if(img.empty())
     {
@@ -18,19 +19,21 @@ int main(int argc, char** argv)
     }
 
     // cerate an image holder to get the green channel
-    cv::Mat channel;
+    Mat channel;
 
     // Extract green plane
-    cv::extractChannel(img, channel, 2);
+    extractChannel(img, channel, 2);
 
     // Resize image for display
-    cv::resize(channel, channel, cv::Size(), 0.20, 0.20);
+    // resize(channel, channel, Size(), 0.20, 0.20);
     
     // Get a named window
-    cv::namedWindow("Green Color plane");
+    // cv::namedWindow("Green Color plane");
+
+    imwrite("out.jpg", channel);
 
     // show the green plane (gray image)
-    imshow("Green Color plane", channel);
+    // imshow("Green Color plane", channel);
     
     int k = cv::waitKey(0);
     return 0;
